@@ -33,6 +33,18 @@ body:
     validations:
       required: true
 
+  - type: input
+    attributes:
+      label: Related Epics
+      description: All related epics
+      placeholder: i.e 7, 8
+
+  - type: input
+    attributes:
+      label: Related Tasks
+      description: All related tasks
+      placeholder: i.e 4, 5
+
   - type: checkboxes
     id: severity
     attributes:

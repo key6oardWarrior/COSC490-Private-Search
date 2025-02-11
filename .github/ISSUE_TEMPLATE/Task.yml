@@ -17,6 +17,18 @@ body:
     validations:
       required: true
 
+  - type: input
+    attributes:
+      label: Related Stories
+      description: All related stories
+      placeholder: i.e 7, 8
+
+  - type: input
+    attributes:
+      label: Related Epics
+      description: All related epics
+      placeholder: i.e 4, 5
+
   - type: checkboxes
     id: severity
     attributes:
