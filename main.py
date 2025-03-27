@@ -5,3 +5,4 @@ from SearchAPI.search import Search
 
 search = Search()
 print(search.query("where is china"), "\n\n", search.get_assisted_answers())
+print(search.chat("where is china"))

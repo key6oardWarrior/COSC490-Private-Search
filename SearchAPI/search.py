@@ -17,7 +17,7 @@ class Search:
 		"definition_url": None
 	}
 	__MODELS = ["gpt-4o-mini", "llama-3.3-70b", "claude-3-haiku", "o3-mini", "mistral-small-3"]
-	__search_engine: DDGS = None
+	__search_engine = DDGS()
 
 	def __init__(self) -> None:
 		pass
@@ -52,7 +52,7 @@ class Search:
 
 		return DDGS().text(query, max_results=max_results, safesearch=safe_search)
 
-	def chat(self, model: str="gpt-4o-mini", timeout: int=30) -> None:
+	def chat(self, msg: str, model: str="gpt-4o-mini", timeout: int=30) -> str:
 		'''
 		# Description:
 		Chat with a model. To end chat type "end chat"
@@ -62,16 +62,11 @@ class Search:
 		"claude-3-haiku", "o3-mini", "mistral-small-3". Defaults to
 		"gpt-4o-mini".\n
 		`timeout` (optional) -  Timeout value for the HTTP client. Defaults to 30.
+
+		# Returns:
+		Responce from the LLM
 		'''
-		self.__search_engine = DDGS(timeout=timeout)
-		msg = input("Enter message here: ")
-
-		while msg.lower() != "end chat":
-			self.__search_engine.chat(msg, model=model, timeout=timeout)
-			msg = input("Enter message here: ")
-
-		del self.__search_engine
-		self.__search_engine = None
+		return self.__search_engine.chat(msg, model=model, timeout=timeout)
 
 	def news(self, keywords: str, region: str="wt-wt", safe_search: str="off", time_limit: str="w", max_results: int=25) -> list[dict[str, str]]:
 		"""
