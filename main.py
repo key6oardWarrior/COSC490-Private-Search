@@ -4,5 +4,4 @@ path.append(join(path[0], "SearchAPI"))
 from SearchAPI.search import Search
 
 search = Search()
-print(search.query("where is china"), "\n\n", search.get_assisted_answers())
-print(search.chat("where is china"))
+print(search.query(input("Enter question:")), "\n\n", search.get_assisted_answers())
