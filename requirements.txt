@@ -1,1 +1,2 @@
-duckduckgo_search
+duckduckgo_search==7.5.4
+PySimpleGUI==5.0.8

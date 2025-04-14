@@ -40,6 +40,14 @@ class Search:
 		params["q"] = query
 		result = Results(get(self.__URL, params=params).json())
 
+		self.__json_results["quick_answer"] = None
+		self.__json_results["quick_answer_source"] = None
+		self.__json_results["quick_answer_url"] = None
+
+		self.__json_results["definition"] = None
+		self.__json_results["definition_source"] = None
+		self.__json_results["definition_url"] = None
+
 		if result.answer:
 			self.__json_results["quick_answer"] = result.answer
 			self.__json_results["quick_answer_source"] = result.source
