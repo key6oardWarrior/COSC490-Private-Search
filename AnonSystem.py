@@ -28,7 +28,7 @@ class AnonSystem:
 
 	def tor(self, link: str) -> None:
 		if self.__tor_location:
-			system(f"cd {self.__tor_location} && ./start-tor-browser.desktop --detach {link}")
+			system(f"cd {self.__tor_location} && ./start-tor-browser --detach {link}")
 		else:
 			raise FileNotFoundError("Tor browser location not set")
 
