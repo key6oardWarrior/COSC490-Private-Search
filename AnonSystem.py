@@ -1,5 +1,5 @@
-from os import system
-from os.path import exists
+from os import system, getcwd
+from os.path import exists, join
 
 from helper import SETTINGS_FILE
 
@@ -8,13 +8,12 @@ class AnonSystem:
 	__tor_location: str = None
 
 	def __init__(self) -> None:
-		system("sudo service tor start && sudo anonsurf start")
 		self.__is_secure = True
-		
 		if exists(SETTINGS_FILE):
-			file = open(SETTINGS_FILE, "r")
+			file = open(join(getcwd(), SETTINGS_FILE), "r")
 			self.__tor_location = file.read()
 			file.close()
+		system("sudo service tor start && sudo anonsurf start")
 
 	@staticmethod
 	def wipe_memory() -> None:
@@ -26,12 +25,12 @@ class AnonSystem:
 
 	def tor(self, link: str) -> None:
 		if self.__tor_location:
-			system(f"./{self.__tor_location}/Browser/start-tor-browser --detach {link}")
+			system(f"cd {self.__tor_location} && ./start-tor-browser.desktop --detach {link}")
 		else:
 			raise FileNotFoundError("Tor browser location not set")
 
 	def proxychains(self, link: str) -> None:
 		if self.__is_secure:
 			system(f"proxychains firefox {link}")
-
-		raise Exception("Cannot open link system not secure")
+		else:
+			raise Exception("Cannot open link system not secure")

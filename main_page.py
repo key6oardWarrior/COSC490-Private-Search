@@ -1,12 +1,15 @@
 from os import getcwd
 from os.path import join
 
-from PyGUI import Window, Button, Text, Input, DropDown, FileBrowse
+from PyGUI import Window, Button, Text, Input, DropDown, FolderBrowse
 
 from helper import exit_app, WIN_NAME, SETTINGS_FILE
 from query_page import query_page
+from AnonSystem import AnonSystem
 
 def main_page() -> None:
+	anon = AnonSystem()
+
 	layout = [
 		[Text("Query:"), Input(key="query")],
 		[Button("Search Web", key="web"), Button("Search News", key="news")],
@@ -20,13 +23,14 @@ def main_page() -> None:
 		exit_app(event, search_page)
 
 		if event == "settings":
-			s_event, s_values = Window("Settings", [[Text("Tor browser file location"), FileBrowse("Browse", key="tor_file", file_types=(("Shell Files", "*.sh"),))]]).read()
+			s_event, s_values = Window("Settings", [[Text("Tor browser file location"), FolderBrowse("Browse", key="tor_file", enable_events=True), Button("Submit")]]).read()
 			s_values: dict[str, str]
 
-			if((s_values["tor_file"]) and (s_values["tor_file"].strip() != "")):
-				file = open(SETTINGS_FILE, "w")
-				file.write(s_values["tor_file"])
-				file.close()
+			if s_event == "Submit":
+				if((s_values["tor_file"]) and (s_values["tor_file"].strip() != "")):
+					file = open(join(getcwd(), SETTINGS_FILE), "w")
+					file.write(s_values["tor_file"])
+					file.close()
 
 		if len(values["query"]) == 0:
 			continue
@@ -41,7 +45,7 @@ def main_page() -> None:
 			continue
 
 		if((event == "web") or (event == "news")):
-			query_page(values["query"], event, values["safe_search"])
+			query_page(anon, values["query"], event, values["safe_search"])
 
 if __name__ == "__main__":
 	main_page()

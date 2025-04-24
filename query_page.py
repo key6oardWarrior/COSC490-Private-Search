@@ -19,8 +19,7 @@ def break_up_text(text: str) -> str:
 			cnt += 1
 	return text
 
-def query_page(query: str, query_type: str, safe_search: str) -> None:
-	anon = AnonSystem() if platform == "linux" else None
+def query_page(anon: AnonSystem, query: str, query_type: str, safe_search: str) -> None:
 	search = Search()
 	results: list[dict[str, str]] = None
 	SEPARATOR = "----------"

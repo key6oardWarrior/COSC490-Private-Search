@@ -1,12 +1,7 @@
-from multiprocessing import Process
+from os import system
 
-from main_page import main_page
 from AnonSystem import AnonSystem
 
-process = Process(target=main_page)
-process.start()
-
-while process.is_alive():
-	pass
+system("proxychains python main_page.py")
 
 AnonSystem.wipe_memory()
