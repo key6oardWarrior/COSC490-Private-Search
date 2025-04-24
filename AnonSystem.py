@@ -13,6 +13,9 @@ class AnonSystem:
 			file = open(join(getcwd(), SETTINGS_FILE), "r")
 			self.__tor_location = file.read()
 			file.close()
+		system("sudo macchanger -r eth0")
+		system("sudo macchanger -r wlan0")
+		system("sudo macchanger -r lo")
 		system("sudo service tor start && sudo anonsurf start")
 
 	@staticmethod
