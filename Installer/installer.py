@@ -14,11 +14,6 @@ nameserver 1.1.1.1
 nameserver 1.0.0.1" >> /etc/resolvconf/resolv.conf.d/head
 """
 
-restart_NetworkManager = \
-"""
-sudo services NetworkManager restart
-"""
-
 install_tor = \
 """
 sudo apt install tor
@@ -62,10 +57,8 @@ def check_exit_code(exit_code: int, command: str) -> None:
 
 check_exit_code(system(install_resolvconf), install_resolvconf)
 check_exit_code(system(resolvconf), resolvconf)
-check_exit_code(system(restart_NetworkManager), restart_NetworkManager)
 check_exit_code(system(install_tor), install_tor)
 check_exit_code(system(install_anonsurf), install_anonsurf)
 check_exit_code(system(install_proxychains), install_proxychains)
 check_exit_code(system(proxychains4_conf), proxychains4_conf)
-check_exit_code(system(restart_NetworkManager), restart_NetworkManager)
 check_exit_code(system(install_requirements), install_requirements)
